@@ -13,6 +13,7 @@ var globalConfig = require('./config.json');
 
 // parse server s3 adapter
 var S3Adapter = require('parse-server-s3-adapter');
+var FSFilesAdapter = require('@parse/fs-files-adapter');
 
 // parse server
 var ParseServer = require('parse-server').ParseServer;
@@ -28,7 +29,10 @@ var api = new ParseServer({
     serverURL: config.serverURL+":"+config.parseServer.port+"/", // Don't forget to change to https if needed
     publicServerURL: config.publicServerURL+"/",
     logsFolder:'./logs/'+config.app+"/",
-    filesAdapter: (process.env.AWS_ACCESS_KEY_ID ? new S3Adapter(globalConfig.S3FilesAdapter.bucket) : null)
+    //filesAdapter: (process.env.AWS_ACCESS_KEY_ID ? new S3Adapter(globalConfig.S3FilesAdapter.bucket) : null)
+    filesAdapter: new FSFilesAdapter({
+        "filesSubDirectory": config.parseServer.appId // optional
+      })
 });
 
 

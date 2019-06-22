@@ -5,7 +5,7 @@ var customer = process.env.customer||makeid(10);
 var appName = process.env.app||'testApp';
 var usePrefix = config.useCollectionPrefix === undefined ? true:config.useCollectionPrefix;
 console.log(usePrefix);
-var databaseURI = config.databaseURI+(usePrefix?'':'/'+appName);
+var databaseURI = config.databaseURI+(usePrefix?'':appName);
 
 var psPort = (Number(process.env.no)+1337) || '1337';
 var fs = require('fs');
